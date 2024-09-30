@@ -1,43 +1,40 @@
 import User  from '../models/User.js'
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
-import mongoose from 'mongoose';
+import createHttpError from 'http-errors';
+import createError from 'http-errors'
 const JWT_KEY = "ffff" ; 
-const mongodbURL = "mongodb+srv://joycseru:f01765711177@cluster0.l9t1yml.mongodb.net/ems" ;
 
 
-const login =async (req,res)=>{
-   await  mongoose.connect(mongodbURL) ;
+const login =async (req,res,next)=>{
+  
    try{
-    const {email} = req.body ; 
+    const {email,password} = req.body ; 
+    console.log(email) ;
+    console.log(password) ;
     const user = await User.findOne({email})
 
     if(!user){
-        res.status(404).json({
-            success:false,
-            error:"User not found"
-        })
+        throw createError(401,'User not found with this mail') ; 
     }
-    const isMatch = await bcrypt.compare(password,user.password)
-    if(!isMatch){
-        res.status(404).json({
-            success:false,
-            error:"Wrong Password"
-        })
-    }
+    // const isMatch = await bcrypt.compare(password,user.password)
+    // if(!isMatch){
+    //     throw createError(401,'User password is not matched') ; 
+    // }
 
     const token = jwt.sign({_id:user._id , role:user.role},
         JWT_KEY,{expiresIn:"1d"}
     )
     res.status(200).json({
         suceess:true,
+        message:'User Login Successfully',
         token , 
         user:{_id:user._id, name:user.name , role:user.role },
     })
 
    }catch(error){
-    console.log(error) ;
+      next(error);
    }
 }
 
-export {login}
+export default login
