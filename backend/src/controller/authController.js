@@ -1,9 +1,15 @@
 import User  from '../models/User.js'
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import createHttpError from 'http-errors';
 import createError from 'http-errors'
 const JWT_KEY = "ffff" ; 
+ import  createJSONWebToken  from '../helper/jsonwebToken.js';
+ import  successResponse  from './responseController.js';
+// const { jwtActivationKey } = require("../secret");
+import { cookie } from 'express-validator';
+
+
 
 
 const login =async (req,res,next)=>{
@@ -38,3 +44,90 @@ const login =async (req,res,next)=>{
 }
 
 export default login
+
+
+// const handleLogin = async(req,res,next)=>{
+//     try{
+//         const {email,password} = req.body ; 
+        
+//         const user = await User.findOne({email}) ; 
+       
+
+//         if(!user){
+//             throw createHttpError(404,'User does not exist with this email.Please Register First') ; 
+
+
+//         }
+//         //compare password same or not
+
+//        const isPasswordMatch = await bcrypt.compare(password,user.password) ; 
+//        if(!isPasswordMatch){
+//            throw createError(401,'Email/Pass did not match') ; 
+
+//        }
+//        //isBanned
+//        if(user.isBanned){
+//         throw createError(403,'You are Banned.Please contact Authority') ; 
+
+//        }
+//        //token , cookie
+//        //create jwt 
+//        const accessToken = createJSONWebToken({isAdmin:user.isAdmin},
+//         jwtActivationKey,
+//         '15m'
+//        );
+
+//        res.cookie('access_token',accessToken,{
+//         maxAge:15*60*1000,
+//         httpOnly:true,
+//         //secure:true,
+//         sameSite: 'none'
+//        });
+//         //successResponse
+
+//         return successResponse(res, {
+//             statusCode:200,
+//             message:'user login Successfully',
+//             payload:{}
+// ,         }) ; 
+
+//     }
+//     catch(error){
+//        next(error) ; 
+//     }
+// };
+
+// const handleLogOut = async(req,res,next)=>{
+//     try{
+        
+//         res.clearCookie('access_token') ; 
+
+//         return successResponse(res, {
+//             statusCode:200,
+//             message:'user logout Successfully',
+//             payload:{}
+// ,         }) ; 
+
+//     }
+//     catch(error){
+//        next(error) ; 
+//     }
+// };
+// const isAdmin = async(req,res,next)=>{
+//     try{
+        
+//         res.clearCookie('access_token') ; 
+
+//         return successResponse(res, {
+//             statusCode:200,
+//             message:'user logout Successfully',
+//             payload:{}
+// ,         }) ; 
+
+//     }
+//     catch(error){
+//        next(error) ; 
+//     }
+// };
+
+// module.exports = {handleLogin,handleLogOut }
