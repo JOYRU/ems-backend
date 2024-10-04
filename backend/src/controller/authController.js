@@ -8,6 +8,7 @@ const JWT_KEY = "ffff" ;
  import  successResponse  from './responseController.js';
 // const { jwtActivationKey } = require("../secret");
 import { cookie } from 'express-validator';
+import jwtActivationKey from '../secret.js';
 
 
 
@@ -23,27 +24,53 @@ const login =async (req,res,next)=>{
     if(!user){
         throw createError(401,'User not found with this mail') ; 
     }
-    // const isMatch = await bcrypt.compare(password,user.password)
-    // if(!isMatch){
-    //     throw createError(401,'User password is not matched') ; 
-    // }
+  
+    //   const isPasswordMatch = await bcrypt.compare(password,user.password) ; 
+    //    if(!isPasswordMatch){
+    //        throw createError(401,'Email/Pass did not match') ; }
 
-    const token = jwt.sign({_id:user._id , role:user.role},
-        JWT_KEY,{expiresIn:"1d"}
+    const accessToken = jwt.sign({_id:user._id , role:user.role},
+        jwtActivationKey,{expiresIn:"1d"}
     )
-    res.status(200).json({
-        suceess:true,
-        message:'User Login Successfully',
-        token , 
-        user:{_id:user._id, name:user.name , role:user.role },
-    })
+    res.cookie('access_token',accessToken,{
+    maxAge:15*60*1000,
+    httpOnly:true,
+    //secure:true,
+    sameSite: 'none'
+    });
+        //successResponse
+
+    return successResponse(res, {
+        statusCode:200,
+        message:'user login Successfully',
+        payload:{user}
+,         }) ; 
+
+
+
+
+    // res.status(200).json({
+    //     suceess:true,
+    //     message:'User Login Successfully',
+    //     token , 
+    //     user:{_id:user._id, name:user.name , role:user.role },
+    // })
 
    }catch(error){
       next(error);
    }
 }
+const verify_user = (req,res,next)=>{
+    return successResponse(res,{
+        success:true,
+        statusCode:200 , 
+        message:"User Verify successfully",
+        user:req.user
+    })
+}
 
-export default login
+export  {login ,verify_user} ;  
+
 
 
 // const handleLogin = async(req,res,next)=>{

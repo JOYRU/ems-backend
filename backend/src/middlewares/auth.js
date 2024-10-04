@@ -1,8 +1,10 @@
-const createError = require('http-errors') ; 
-const jwt = require('jsonwebtoken') ; 
-const { jwtActivationKey } = require('../secret');
-const { successResponse } = require('../controllers/responseController');
-const { create } = require('../models/userModel');
+
+import createError from 'http-errors'
+import jwt from 'jsonwebtoken'
+import jwtActivationKey from '../secret';
+import successResponse from '../controller/responseController';
+
+// const { create } = require('../models/userModel');
 
 
 const isLoggedIn =async (req,res,next)=>{
@@ -34,42 +36,42 @@ const isLoggedIn =async (req,res,next)=>{
      }
     
 }
-const isLoggedOut =async (req,res,next)=>{
-    try{
-        const token = req.cookies.access_token ;
-      try{
-        if(token){
-            const decoded = jwt.verify(token,jwtActivationKey) ; 
-            if(decoded){
-                throw createError(400,'User is already Logged In') ; 
-            }
-        }
+// const isLoggedOut =async (req,res,next)=>{
+//     try{
+//         const token = req.cookies.access_token ;
+//       try{
+//         if(token){
+//             const decoded = jwt.verify(token,jwtActivationKey) ; 
+//             if(decoded){
+//                 throw createError(400,'User is already Logged In') ; 
+//             }
+//         }
 
-      }catch(error){
-        throw error;
-      }
-        next() ; 
+//       }catch(error){
+//         throw error;
+//       }
+//         next() ; 
     
 
-    }catch(error){
-       next(error) ; 
-    }
+//     }catch(error){
+//        next(error) ; 
+//     }
    
-}
-const isAdmin =async (req,res,next)=>{
-    try{
-      if(!req.user.isAdmin){
-        throw create(403,'Forbidden. You muest be a admin for this access')  ; 
-      }
+// }
+// const isAdmin =async (req,res,next)=>{
+//     try{
+//       if(!req.user.isAdmin){
+//         throw create(403,'Forbidden. You muest be a admin for this access')  ; 
+//       }
        
-     next() ; 
+//      next() ; 
 
-    }catch(error){
-       next(error) ; 
-       //throw next(error) ; 
-    }
+//     }catch(error){
+//        next(error) ; 
+//        //throw next(error) ; 
+//     }
    
-}
+// }
 
 
 

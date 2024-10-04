@@ -1,7 +1,8 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useContext, useState } from 'react'
 import axios from 'axios'
 
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../context/AuthContext';
 
 
 const Login = ()=>{
@@ -9,16 +10,27 @@ const Login = ()=>{
     const[password,setPassword] = useState('')  ;
     const[errors,setErrors] = useState(false) ; 
     const navigate = useNavigate() ; 
+     const {login} = useAuth() ;
+
     const handleSubmit=async(e)=>{
-        e.preventDefault() 
+      
+      e.preventDefault() 
         try{
             const response = await axios.post('http://localhost:5000/api/auth/login',{email,password}) ;
-            if(response){
-               alert("Successfully Login")
-              navigate('/admin-dashboard')
+            if(response.data){
+          const    result = Object.keys(response.data.payload.user).map((key) => [key, response.data.payload.user[key]]);
+               login(result)
+               localStorage.setItem("token",response.data.token)
+               if(response.data.payload.user.role=="admin"){
+                navigate('/admin-dashboard')
+               }
+               else{
+                navigate('/employe-dashboard')
+               }
+               
+             
             }
-            console.log("hello") ;
-            console.log(response)
+            
         }catch(error){
         
         // console.log(error)
@@ -29,6 +41,7 @@ const Login = ()=>{
               setErrors(Object.values(error.response.config.data.error).toString())
               //setErrors((error.response.config.data.error))
           }else{
+           
             setErrors("Server Error")
           }
          console.log(error)

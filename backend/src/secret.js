@@ -1,6 +1,6 @@
-require('dotenv').config() ; 
+// require('dotenv').config() ; 
 const serverPort = process.env.SERVER_PORT ; 
-module.exports = {serverPort}
+// module.exports = {serverPort}
 const defaultImagePath = process.env.DEFAULT_USER_IMAGE_PATH || 'public/images/users/default.png'
 
 
@@ -14,4 +14,7 @@ const uploadDir = process.env.UPLOAD_FILE || 'public/images/users' ;
 // const uploadDir = public/images/users ;
 
 //module.exports = {jwtActivationKey , smtpUsername ,smtpPassword , uploadDir }
-module.exports = {jwtActivationKey , smtpUsername ,smtpPassword,uploadDir}
+
+
+export default jwtActivationKey
+//module.exports = {jwtActivationKey , smtpUsername ,smtpPassword,uploadDir}
