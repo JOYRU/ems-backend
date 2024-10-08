@@ -1,8 +1,13 @@
 import React, { Component, useContext, useState } from 'react'
-import axios from 'axios'
+import axios from 'axios' ; 
+ import {jwtDecode} from 'jwt-decode';
+ import "core-js/stable/atob";
+ const JWT_KEY = "ffff" ; 
 
-import { useNavigate } from "react-router-dom";
-import { useAuth } from '../context/AuthContext';
+ 
+
+import { useNavigate,Route,Link } from "react-router-dom";
+import { useAuth } from '../context/authContext';
 
 
 const Login = ()=>{
@@ -10,43 +15,54 @@ const Login = ()=>{
     const[password,setPassword] = useState('')  ;
     const[errors,setErrors] = useState(false) ; 
     const navigate = useNavigate() ; 
-     const {login} = useAuth() ;
+    const {login} = useAuth() ;
 
     const handleSubmit=async(e)=>{
       
-      e.preventDefault() 
-        try{
-            const response = await axios.post('http://localhost:5000/api/auth/login',{email,password}) ;
-            if(response.data){
-          const    result = Object.keys(response.data.payload.user).map((key) => [key, response.data.payload.user[key]]);
-               login(result)
-               localStorage.setItem("token",response.data.token)
-               if(response.data.payload.user.role=="admin"){
-                navigate('/admin-dashboard')
-               }
-               else{
-                navigate('/employe-dashboard')
-               }
+      e.preventDefault()  ; 
+      
+          await login(email, password);
+      
+
+      // const decoded = jwtDecode(token);
+      // const decoded = jwt.verify(token,JWT_KEY) ; 
+      
+   
+      alert('User logged in successfully');
+
+
+        // try{
+        //     const response = await axios.post('http://localhost:5000/api/auth/login',{email,password}) ;
+        //     if(response.data){
+        //   const    result = Object.keys(response.data.payload.user).map((key) => [key, response.data.payload.user[key]]);
+        //        login(result)
+        //        localStorage.setItem("token",response.data.token)
+        //        if(response.data.payload.user.role=="admin"){
+        //         navigate('/admin-dashboard')
+        //        }
+        //        else{
+        //         navigate('/employe-dashboard')
+        //        }
                
              
-            }
+        //     }
             
-        }catch(error){
+        // }catch(error){
         
-        // console.log(error)
-          if(error.response){
-            console.log("hellofromError")
-               setErrors("Email or Password wrong")
-             // setErrors(Object.values(e).toString())
-              setErrors(Object.values(error.response.config.data.error).toString())
-              //setErrors((error.response.config.data.error))
-          }else{
+        // // console.log(error)
+        //   if(error.response){
+        //     console.log("hellofromError")
+        //        setErrors("Email or Password wrong")
+        //      // setErrors(Object.values(e).toString())
+        //       setErrors(Object.values(error.response.config.data.error).toString())
+        //       //setErrors((error.response.config.data.error))
+        //   }else{
            
-            setErrors("Server Error")
-          }
-         console.log(error)
+        //     setErrors("Server Error")
+        //   }
+        //  console.log(error)
             
-        }
+        // }
         
     }
 
@@ -57,6 +73,9 @@ const Login = ()=>{
             <h1 className='font-sevillana text-2xl text-black'>Employee Management System</h1>
         <div className='border shadow p-6 w-80 bg-white'>
         <h2 className='text-2xl font-bold mb-4'>Login</h2>
+        <h2 className='text-2xl font-bold mb-4'>
+        <Link to="/register">Please Register First</Link>
+        </h2>
         {errors && <p className='text-red-500'>{errors}</p> }
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
           <div className="mb-4">
