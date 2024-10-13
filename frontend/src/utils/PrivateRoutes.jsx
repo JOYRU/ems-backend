@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 const PrivateRoutes=({children})=> {
     const {user,loading} = useAuth()
    // const users = Object.fromEntries(user);
-     console.log(user[1]) ;
+     console.log(user) ;
     if(loading){
         <div>Loading.....</div>
     }

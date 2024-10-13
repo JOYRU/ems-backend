@@ -21,48 +21,49 @@ const Login = ()=>{
       
       e.preventDefault()  ; 
       
-          await login(email, password);
+        //  await login(email, password);
       
 
       // const decoded = jwtDecode(token);
       // const decoded = jwt.verify(token,JWT_KEY) ; 
       
    
-      alert('User logged in successfully');
+      //alert('User logged in successfully');
 
 
-        // try{
-        //     const response = await axios.post('http://localhost:5000/api/auth/login',{email,password}) ;
-        //     if(response.data){
-        //   const    result = Object.keys(response.data.payload.user).map((key) => [key, response.data.payload.user[key]]);
-        //        login(result)
-        //        localStorage.setItem("token",response.data.token)
-        //        if(response.data.payload.user.role=="admin"){
-        //         navigate('/admin-dashboard')
-        //        }
-        //        else{
-        //         navigate('/employe-dashboard')
-        //        }
+        try{
+            const response = await axios.post('http://localhost:5000/api/auth/login',{email,password}) ;
+            if(response.data){
+             //  const result = Object.keys(response.data.payload.user).map((key) => [key, response.data.payload.user[key]]);
+              //console.log(response.data.user)
+               login(response.data.user.user)
+               localStorage.setItem("token",response.data.token)
+               if(response.data.user.user.role=="admin"){
+                navigate('/admin-dashboard')
+               }
+               else{
+                navigate('/employe-dashboard')
+               }
                
              
-        //     }
+            }
             
-        // }catch(error){
+        }catch(error){
         
-        // // console.log(error)
-        //   if(error.response){
-        //     console.log("hellofromError")
-        //        setErrors("Email or Password wrong")
-        //      // setErrors(Object.values(e).toString())
-        //       setErrors(Object.values(error.response.config.data.error).toString())
-        //       //setErrors((error.response.config.data.error))
-        //   }else{
+        // console.log(error)
+          if(error.response){
+            console.log("hellofromError")
+               setErrors("Email or Password wrong")
+             // setErrors(Object.values(e).toString())
+              setErrors(Object.values(error.response.config.data.error).toString())
+              //setErrors((error.response.config.data.error))
+          }else{
            
-        //     setErrors("Server Error")
-        //   }
-        //  console.log(error)
+            setErrors("Server Error")
+          }
+         console.log(error)
             
-        // }
+        }
         
     }
 

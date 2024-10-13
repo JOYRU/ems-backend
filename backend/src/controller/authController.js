@@ -11,69 +11,65 @@ import { cookie } from 'express-validator';
 import jwtActivationKey from '../secret.js';
 
 const register = async(req,res,next)=>{
-    const { username, password } = req.body;
+    const { name, password,email,role } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, password: hashedPassword });
+    const newUser = new User({ name, password: hashedPassword,email,role });
     await newUser.save();
     res.status(201).send('User registered');
 }
 
 
 const login =async (req,res,next)=>{
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).send('Invalid credentials');
+    // const { email, password } = req.body;
+    // const user = await User.findOne({ email });
+    // if (!user) return res.status(400).send('Invalid credentials');
 
-    // const isMatch = await bcrypt.compare(password, user.password);
-    // if (!isMatch) return res.status(400).send('Invalid credentials');
+    // // const isMatch = await bcrypt.compare(password, user.password);
+    // // if (!isMatch) return res.status(400).send('Invalid credentials');
 
-     const token = jwt.sign({ id: user._id,email }, JWT_KEY, { expiresIn: '1h' });
-          res.cookie('access_token',token,{
-         maxAge:15*60*1000,
-        httpOnly:true,
-        //secure:true,
-         sameSite: 'none'
-        });
+    //  const token = jwt.sign({ id: user._id,email }, JWT_KEY, { expiresIn: '1h' });
+    //       res.cookie('access_token',token,{
+    //      maxAge:15*60*1000,
+    //     httpOnly:true,
+    //     //secure:true,
+    //      sameSite: 'none'
+    //     });
    
-     res.json({ token });
+    //  res.json({ token });
+   try{
+    const {email,password} = req.body ; 
+   // console.log(email) ;
+   // console.log(password) ;
+    const user = await User.findOne({email})
+   /// console.log(user) ;
 
-
-
-
-
-
-
+    if(!user){
+        throw createError(401,'User not found with this mail') ; 
+    }
   
-//    try{
-//     const {email,password} = req.body ; 
-//     console.log(email) ;
-//     console.log(password) ;
-//     const user = await User.findOne({email})
+    //   const isPasswordMatch = await bcrypt.compare(password,user.password) ; 
+    //    if(!isPasswordMatch){
+    //        throw createError(401,'Email/Pass did not match') ; }
 
-//     if(!user){
-//         throw createError(401,'User not found with this mail') ; 
-//     }
-  
-//     //   const isPasswordMatch = await bcrypt.compare(password,user.password) ; 
-//     //    if(!isPasswordMatch){
-//     //        throw createError(401,'Email/Pass did not match') ; }
+    const token = jwt.sign({_id:user._id , role:user.role},
+        jwtActivationKey,{expiresIn:"1d"}
+    )
+   // console.log(token) ;
+    res.cookie('token',token,{
+    maxAge:15*60*1000,
+    httpOnly:true,
+    //secure:true,
+    sameSite: 'none'
+    });
+        //successResponse
 
-//     const accessToken = jwt.sign({_id:user._id , role:user.role},
-//         jwtActivationKey,{expiresIn:"1d"}
-//     )
-//     res.cookie('access_token',accessToken,{
-//     maxAge:15*60*1000,
-//     httpOnly:true,
-//     //secure:true,
-//     sameSite: 'none'
-//     });
-//         //successResponse
-
-//     return successResponse(res, {
-//         statusCode:200,
-//         message:'user login Successfully',
-//         payload:{user}
-// ,         }) ; 
+    return successResponse(res, {
+        statusCode:200,
+        success:true,
+        message:'user login Successfully',
+        token:token,
+        user:{user}
+,        }) ; 
 
 
 
@@ -85,17 +81,19 @@ const login =async (req,res,next)=>{
     //     user:{_id:user._id, name:user.name , role:user.role },
     // })
 
-//    }catch(error){
-//       next(error);
-//    }
+   }catch(error){
+      next(error);
+   }
 }
+
 const verify_user = (req,res,next)=>{
-    return successResponse(res,{
-        success:true,
-        statusCode:200 , 
-        message:"User Verify successfully",
-        user:req.user
-    })
+    // return successResponse(res,{
+    //     success:true,
+    //     statusCode:200 , 
+    //     message:"User Verify successfully",
+    //     user:req.user
+    // })
+    return res.status(200).json({success:true,user:req.user})
 }
 
 export  {login ,verify_user ,register} ;  

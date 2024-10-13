@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 // import { useAuth } from '../context/AuthContext';
 import { useAuth } from '../context/authContext';
 const Register = () => {
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [role, setRole] = useState('employee');
     const [password, setPassword] = useState('');
     const { register } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await register(username, password);
+        await register(name, password,email,role);
         alert('User registered successfully');
     };
 
@@ -24,8 +25,8 @@ const Register = () => {
                     <input
                         type="text"
                         id="username"
-                       // value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         required
                         className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                     />
@@ -37,7 +38,7 @@ const Register = () => {
                     <input
                         type="email"
                         id="email"
-                       // value={email}
+                        value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
