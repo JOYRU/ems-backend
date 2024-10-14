@@ -18,22 +18,22 @@ const DepartmentList=()=> {
           // })
             const response = await axios.get('http://localhost:5000/api/departments')
              
-         //   console.log(response.data.departments);
+           // console.log(response.data);
             if(response.data.success){
              // console.log(response.data.departments);
               let sno = 1 ; 
-              //let data="" ; 
-             const data = await response.data.departments.map((dept)=>(
+            // let data="" ; 
+            const data=await response.data.departments.map((dept)=>(
            
-            {
-              _id:dept._id ,
-              sno:sno++,
-              dept_name:dept.dept_name,
-              action:(<DepartmentButtons _id={dept._id} onDepartmentDelete={onDepartmentDelete}/>),
-            }
+             {
+               _id:dept._id ,
+               sno:sno++,
+               dept_name:dept.dept_name,
+               action:(<DepartmentButtons _id={dept._id} onDepartmentDelete={onDepartmentDelete}/>),
+             }
            
 
-              ) )
+               ) )
            
            setDepartments(data) 
            //console.log(data);

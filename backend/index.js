@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 import authRouter from './src/router/authRouter.js';
 import  seedRouter  from "./src/router/seedRouter.js";
 import deparmentRouter from "./src/router/department.js";
+import employeeRouter from "./src/router/employeeRouter.js";
 
 
 const app = express() ; 
@@ -22,6 +23,7 @@ app.use(cookieParser()) ;
 app.use('/api/auth',authRouter)
  app.use('/api/seed',seedRouter)
  app.use('/api/departments',deparmentRouter)
+ app.use('/api/employees',employeeRouter)
 
 const mongodbURL = "mongodb+srv://joycseru:f01765711177@cluster0.l9t1yml.mongodb.net/ems" 
 
