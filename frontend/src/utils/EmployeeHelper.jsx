@@ -1,6 +1,29 @@
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
+export const fetchDepartments = async()=>{
+     let departments ; 
+    try{
+    // const response = await axios.get('http://localhost:5000/api/departments',{
+          //   headers: {
+          //     "Authorization" : 'Bearer '+localStorage.getItem('token')
+          //   }
+          // })
+          const response = await axios.get('http://localhost:5000/api/departments') ;
+        if(response.data.success){
+             departments = response.data.departments ; 
+             //console.log(departments)
+
+        }
+     }catch(error){
+        alert(error.response.data.error)
+     }
+     return departments ; 
+}         
+
+
+
+
 export const columns = [
     {
         name: "S No",
