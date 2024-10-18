@@ -11,7 +11,7 @@ const AddEmployee = () => {
     
     const handleChange= (e)=>{
       const{name,value,files}= e.target 
-      if(name==="image"){
+      if(name=="image"){
         setFormData((prevData)=> ({...prevData,[name]:files[0]}))
       }else{
         setFormData((prevData)=> ({...prevData,[name]:value}))
@@ -47,11 +47,19 @@ const AddEmployee = () => {
 
     const handleSubmit =async (e)=>{
         e.preventDefault() ; 
+        //let formData = new FormData();
+        // Object.keys(inputData).forEach(fieldName => {
+        //   console.log(fieldName, inputData[fieldName]);
+        //   formData.append(fieldName, inputData[fieldName]);
+        // })
 
-        const formDataObj = new FormData()
-        Object.keys(formData).forEach((key)=>{
+        let formDataObj = new FormData();
+        Object.keys(formData).forEach(key=>{
+         // console.log(key,formData[key]) ;
           formDataObj.append(key,formData[key])
         })
+
+        console.log(formDataObj)
     
         try{
          
@@ -75,7 +83,7 @@ const AddEmployee = () => {
         <div>
             <label htmlFor="employee_name" className='text-sm font-medium text-gray-700'>Emp Name</label>
             <input type="text" placeholder='Enter Emp Name'
-            //  value={employee_name}             
+            // value={employee_name}             
              name="employee_name"     
              onChange={handleChange}
             className='mt-1 w-full p-2 border boder-gray-300 rounded-md'  required/>

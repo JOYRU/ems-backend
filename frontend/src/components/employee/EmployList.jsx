@@ -18,6 +18,7 @@ const EmployeeList=()=> {
           //   }
           // })
             const response = await axios.get('http://localhost:5000/api/employees')
+            console.log(response.data);
              
          //   console.log(response.data.departments);
             if(response.data.success){

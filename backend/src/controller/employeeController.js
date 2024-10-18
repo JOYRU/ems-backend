@@ -3,7 +3,7 @@ import Department from "../models/Employee.js";
 import User from "../models/User.js";
 import successResponse from "./responseController.js";
 import multer from 'multer' ; 
-import bcrypt from 'bcrypt'
+import bcrypt, { hash } from 'bcrypt'
 import path from "path"
 
 const storage = multer.diskStorage({
@@ -21,32 +21,34 @@ const addEmployee =async(req,res,next)=>{
    
 
        
-        const{name,email,employeeId,dob,gender,maritalStatus,designation,department,salary,password,role} = req.body ; 
-
-        const user = await User.findOne({email})
+        const{employee_name,email,employee_id,dob,gender,maritul_status,designation,department,salary,password,role} = req.body ; 
+          console.log(employee_name,email,employee_id,dob,gender,maritul_status,designation,department,salary,password,role)
+        const user = await User.findOne({email}) ; 
+    
         if(user){
             return res.status(400).json({success:false,error:"User already registered in emp"})
         }
-
-        const hashPassword = await bcrypt.hash(password,10) ; 
+     
+     const hashPassword = await bcrypt.hash(password,10) ; 
+   
 
      const newUser = new User({
-        name,email,
+        employee_name,email,
         password:hashPassword,
         role,
-        profileImage:req.file ? req.file.filename:""
-
+        profileImage:req.file ? req.file.filename:"",
         
      })
+
      const saveUser = await newUser.save() ;
 
      
         const newEmp = new Employee({
             userId:saveUser._id,
-            employeeId,
+            employee_id,
             dob,
             gender,
-            maritalStatus,
+            maritul_status,
             designation,
             department,
             salary
@@ -61,7 +63,7 @@ const addEmployee =async(req,res,next)=>{
 const getEmployees =async(req,res,next)=>{
    
     try{
-        const employees = await Employee.find()
+        const employees = await Employee.find().populate('userId')
         return res.status(200).json({
             success:true,
             employees
