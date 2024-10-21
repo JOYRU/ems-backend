@@ -31,7 +31,15 @@ export const columns = [
     },
     {
         name:"Employee Name",
+        selector:(row)=>row.emp_name
+    },
+    {
+        name:"Department Name",
         selector:(row)=>row.dept_name
+    },
+    {
+        name:"DOB",
+        selector:(row)=>row.dob
     },
     {
         name:"Action",
@@ -57,11 +65,17 @@ export const EmployeeButtons = ({_id,onEmployeeDelete})=>{
 
     }
     return (
-        <div className="flex space-x-3">
-            <button className="px-3 py-1 bg-teal-600 text-white" 
+        <div className="flex">
+            <button className="px-1.5 py-1 bg-teal-600 text-white" 
               onClick={()=>navigate('/admin-dashboard/employee/'+_id)}
               >Edit</button>
-            <button className="px-3 py-1 bg-red-600 text-white" onClick={()=>handleDelete(_id)}>Delete</button>
+            <button className="px-1.5 py-1 bg-red-600 text-white" onClick={()=>handleDelete(_id)}>Delete</button>
+            <button className="px-1.5 py-1 bg-teal-600 text-white" 
+              onClick={()=>navigate('/admin-dashboard/employee/'+_id)}
+              >Salary</button>
+               <button className="px-1.5 py-1 bg-teal-600 text-white" 
+              onClick={()=>navigate('/admin-dashboard/employee/'+_id)}
+              >Leave</button>
         </div>
     )
 }

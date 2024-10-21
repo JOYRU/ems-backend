@@ -18,7 +18,7 @@ const EmployeeList=()=> {
           //   }
           // })
             const response = await axios.get('http://localhost:5000/api/employees')
-            console.log(response.data);
+           /// console.log(response.data);
              
          //   console.log(response.data.departments);
             if(response.data.success){
@@ -30,7 +30,9 @@ const EmployeeList=()=> {
             {
               _id:emp._id ,
               sno:sno++,
-              dept_name:emp.employee_name,
+              emp_name:emp.userId.name,
+              dept_name:emp.department,
+              dob:emp.userId.email,
               action:(<EmployeeButtons _id={emp._id} onEmployeeDelete={onEmployeeDelete}/>),
             }
            

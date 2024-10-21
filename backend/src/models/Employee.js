@@ -9,7 +9,8 @@ const employeeSchema = new mongoose.Schema({
     gender:{type:String},
     maritalStatus:{type:String},
     designation:{type:String},
-    //department:{type:mongoose.Schema.Types.ObjectId, ref:"Department" , required:true},
+    // department:{type:mongoose.Schema.Types.ObjectId,ref:"Department" },
+    department:{type:String},
     salary:{type:String, required:true},
 
 },{ timestamps: true })

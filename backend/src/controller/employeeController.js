@@ -7,7 +7,7 @@ import bcrypt, { hash } from 'bcrypt'
 import path from "path"
 
 const storage = multer.diskStorage({
-    designation: (req,file,cb)=>{
+    destination: (req,file,cb)=>{
         cb(null,"public/uploads")
     },
     filename:(req,file,cb)=>{
@@ -25,15 +25,17 @@ const addEmployee =async(req,res,next)=>{
           console.log(employee_name,email,employee_id,dob,gender,maritul_status,designation,department,salary,password,role)
         const user = await User.findOne({email}) ; 
     
-        if(user){
-            return res.status(400).json({success:false,error:"User already registered in emp"})
-        }
+        // if(user){
+        //     return res.status(400).json({success:false,error:"User already registered in emp"})
+        // }
      
      const hashPassword = await bcrypt.hash(password,10) ; 
    
-
+      console.log("hello")  ; 
+      console.log(employee_name)
      const newUser = new User({
-        employee_name,email,
+        name:employee_name,
+        email,
         password:hashPassword,
         role,
         profileImage:req.file ? req.file.filename:"",
@@ -63,7 +65,7 @@ const addEmployee =async(req,res,next)=>{
 const getEmployees =async(req,res,next)=>{
    
     try{
-        const employees = await Employee.find().populate('userId')
+        const employees = await Employee.find().populate('userId').populate('department')
         return res.status(200).json({
             success:true,
             employees
