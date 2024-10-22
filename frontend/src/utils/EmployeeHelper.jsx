@@ -27,23 +27,36 @@ export const fetchDepartments = async()=>{
 export const columns = [
     {
         name: "S No",
-        selector:(row)=>row.sno
+        selector:(row)=>row.sno,
+        width:"70px"
     },
     {
         name:"Employee Name",
-        selector:(row)=>row.emp_name
+        selector:(row)=>row.emp_name,
+        sortable:true,
+        width:'130px'
     },
     {
+        name:"Image",
+        selector:(row)=>row.profileImage,
+        width:"100px"
+    }
+    ,
+    {
         name:"Department Name",
-        selector:(row)=>row.dept_name
+        selector:(row)=>row.dept_name,
+        width:'120px'
     },
     {
         name:"DOB",
-        selector:(row)=>row.dob
+        selector:(row)=>row.dob,
+        width:'100px',
+        sortable:true
     },
     {
         name:"Action",
-        selector:(row)=>row.action
+        selector:(row)=>row.action,
+       
     }
 ]
 
@@ -66,14 +79,14 @@ export const EmployeeButtons = ({_id,onEmployeeDelete})=>{
     }
     return (
         <div className="flex">
-            <button className="px-1.5 py-1 bg-teal-600 text-white" 
+            <button className="px-3 py-1 bg-teal-600 text-white" 
               onClick={()=>navigate('/admin-dashboard/employee/'+_id)}
               >Edit</button>
-            <button className="px-1.5 py-1 bg-red-600 text-white" onClick={()=>handleDelete(_id)}>Delete</button>
-            <button className="px-1.5 py-1 bg-teal-600 text-white" 
-              onClick={()=>navigate('/admin-dashboard/employee/'+_id)}
-              >Salary</button>
-               <button className="px-1.5 py-1 bg-teal-600 text-white" 
+            <button className="px-3 py-1 bg-red-600 text-white" onClick={()=>handleDelete(_id)}>Delete</button>
+            <button className="px-3 py-1 bg-blue-600 text-white" 
+              onClick={()=>navigate('/admin-dashboard/employees/'+_id)}
+              >Details</button>
+               <button className="px-3 py-1 bg-teal-600 text-white" 
               onClick={()=>navigate('/admin-dashboard/employee/'+_id)}
               >Leave</button>
         </div>

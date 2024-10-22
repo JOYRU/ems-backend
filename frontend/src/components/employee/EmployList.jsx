@@ -31,8 +31,9 @@ const EmployeeList=()=> {
               _id:emp._id ,
               sno:sno++,
               emp_name:emp.userId.name,
+              profileImage:<img width={70} className='rounded-full' src={'http://localhost:5000/'+ emp.userId.profileImage} />,
               dept_name:emp.department,
-              dob:emp.userId.email,
+              dob:new Date(emp.dob).toLocaleDateString(),
               action:(<EmployeeButtons _id={emp._id} onEmployeeDelete={onEmployeeDelete}/>),
             }
            

@@ -13,6 +13,7 @@ import { EditDepartment } from './components/deparment/EditDepartment.jsx'
 import EmployeeList from './components/employee/EmployList.jsx'
 import AddEmployee from './components/employee/AddEmployee.jsx'
 import { EditEmployee } from './components/employee/EditEmployee.jsx'
+import { ShowEmployeeInfo } from './components/employee/ShowEmployeeInfo.jsx'
 
 function App() {
 
@@ -38,7 +39,8 @@ function App() {
              
              <Route path="/admin-dashboard/employees" element={<EmployeeList />}></Route>
              <Route path="/admin-dashboard/employees/add-employee" element={<AddEmployee />}></Route>
-             <Route path="/admin-dashboard/employee/:id" element={<EditEmployee />}></Route>  
+             <Route path="/admin-dashboard/employee/:id" element={<EditEmployee />}></Route> 
+             <Route path="/admin-dashboard/employees/:id" element={<ShowEmployeeInfo />}></Route> 
             
              <Route path="/admin-dashboard/departments" element={<DepartmentList />}></Route> 
              <Route path="/admin-dashboard/departments/add-department" element={<AddDeparment />}></Route> 

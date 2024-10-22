@@ -81,7 +81,7 @@ const getEmployees =async(req,res,next)=>{
 const getEmployee=async(req,res)=>{
     try{
         const {id} = req.params ; 
-        const employee= await Employee.findById({_id:id}) ;
+        const employee= await Employee.findById({_id:id}).populate('userId').populate('department');
         return res.status(200).json({success:true,employee})
 
     }catch(error){

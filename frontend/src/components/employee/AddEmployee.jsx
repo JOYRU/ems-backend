@@ -165,7 +165,9 @@ const AddEmployee = () => {
                 departments.map((dep)=>(
 
                  
-                   <option key={dep._id} >{dep.dept_name}</option>
+                  //  <option key={dep._id} value={dep._id} >{dep.dept_name}</option>
+                  <option key={dep._id} >{dep.dept_name}</option>
+                  
                 ))
                }
               
