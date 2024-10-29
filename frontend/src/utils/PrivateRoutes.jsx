@@ -9,7 +9,11 @@ const PrivateRoutes=({children})=> {
         <div>Loading.....</div>
     }
 
-    return user? children:<Navigate to='/login'/>
+    const token = localStorage.getItem('token') ; 
+    console.log(token)
+
+
+    return token? children:<Navigate to='/login'/>
 
 }
 

@@ -24,13 +24,12 @@ function App() {
           <Route path="/" element={<Navigate to="/admin-dashboard"/>}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
+        
           <Route path="/admin-dashboard" element={
-            <AdminDashboard />
-            //  <PrivateRoutes>
-            //    <RoleBaseRoutes requiredRole={["admin"]} >
-            //        <AdminDashboard/>
-               
-            //     </RoleBaseRoutes>
+           
+              <PrivateRoutes>
+                 <AdminDashboard />
+              </PrivateRoutes>
           
            
             
