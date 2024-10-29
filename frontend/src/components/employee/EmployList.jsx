@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import DataTable from 'react-data-table-component'
-
+import * as XLSX from 'xlsx';
 import axios from 'axios'
 import { columns,EmployeeButtons } from '../../utils/EmployeeHelper'
 
@@ -60,6 +60,18 @@ const onEmployeeDelete=async(id)=>{
   setEmployees(data) ; 
 }
 
+const exportToExcel = () => {
+  const worksheet = XLSX.utils.json_to_sheet(employees);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Employees');
+
+  // Create a file name
+  const fileName = 'employees.xlsx';
+
+  // Export to file
+  XLSX.writeFile(workbook, fileName);
+};
+
 
 
   return (
@@ -78,6 +90,9 @@ const onEmployeeDelete=async(id)=>{
           columns={columns} data={employees}
         />
 
+        </div>
+        <div>
+        <button onClick={exportToExcel} className='px-4 py-1 bg-teal-700 rounded text-white'>Export to Excel</button>
         </div>
     </div>
   )

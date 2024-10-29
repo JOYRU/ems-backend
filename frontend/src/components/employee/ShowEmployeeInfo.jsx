@@ -3,6 +3,7 @@ import  { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 
+
 export const ShowEmployeeInfo = () => {
 
     const {id} = useParams()  ;
@@ -57,6 +58,9 @@ export const ShowEmployeeInfo = () => {
                 <p className='text-lg font-bold'>DOB:</p>
                 <p className='font-medium'>{new Date(employee.dob).toLocaleDateString()}</p>
             </div>
+        </div>
+        <div>
+
         </div>
     </div>
   ) :<div>loading</div>}
