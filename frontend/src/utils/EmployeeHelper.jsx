@@ -9,7 +9,7 @@ export const fetchDepartments = async()=>{
           //     "Authorization" : 'Bearer '+localStorage.getItem('token')
           //   }
           // })
-          const response = await axios.get('http://localhost:5000/api/departments') ;
+          const response = await axios.get('https://dev-ems-api.vercel.app/api/departments') ;
         if(response.data.success){
              departments = response.data.departments ; 
              //console.log(departments)
@@ -69,7 +69,7 @@ export const EmployeeButtons = ({_id,onEmployeeDelete})=>{
         if(confirm){
 
       
-        const response =await axios.delete('http://localhost:5000/api/employees/'+_id);
+        const response =await axios.delete('https://dev-ems-api.vercel.app/api/employees/'+_id);
          if(response){
             //navigate('/admin-dashboard/departments')
             onEmployeeDelete(_id)

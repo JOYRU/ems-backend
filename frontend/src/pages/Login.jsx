@@ -16,6 +16,7 @@ const Login = ()=>{
     const[errors,setErrors] = useState(false) ; 
     const navigate = useNavigate() ; 
     const {login} = useAuth() ;
+    axios.defaults.withCredentials = true ;
 
     const handleSubmit=async(e)=>{
       
@@ -32,8 +33,9 @@ const Login = ()=>{
 
 
         try{
-            const response = await axios.post('http://localhost:5000/api/auth/login',{email,password}) ;
-            if(response.data){
+          //  const response = await axios.post('http://localhost:5000/api/auth/login',{email,password}) ;
+          const response = await axios.post('https://dev-ems-api.vercel.app/api/auth/login',{email,password}) ;
+          if(response.data){
              //  const result = Object.keys(response.data.payload.user).map((key) => [key, response.data.payload.user[key]]);
               //console.log(response.data.user)
                login(response.data.user.user)

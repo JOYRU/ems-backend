@@ -19,7 +19,7 @@ const AuthContext = ({children})=>{
 
                 if(token){
                     //console.log("upper")
-                    const response = await axios.get('http://localhost:5000/api/auth/verify',{
+                    const response = await axios.get('https://dev-ems-api.vercel.app/api/auth/verify',{
                         headers:{
                             "Authorization":'Bearer '+token
                         }
@@ -68,7 +68,7 @@ const AuthContext = ({children})=>{
     };
 
     const register = async (name, password,email,role) => {
-        await axios.post('http://localhost:5000/api/auth/register', { name, password,email,role });
+        await axios.post('https://dev-ems-api.vercel.app/api/auth/register', { name, password,email,role });
     };
 
     // const login = (user) =>{

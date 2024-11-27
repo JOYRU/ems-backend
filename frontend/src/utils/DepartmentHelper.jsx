@@ -25,7 +25,7 @@ export const DepartmentButtons = ({_id,onDepartmentDelete})=>{
         if(confirm){
 
       
-        const response =await axios.delete('http://localhost:5000/api/departments/'+_id);
+        const response =await axios.delete('https://dev-ems-api.vercel.app/api/departments/'+_id);
          if(response){
             //navigate('/admin-dashboard/departments')
             onDepartmentDelete(_id)
