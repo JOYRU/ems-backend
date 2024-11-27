@@ -12,7 +12,7 @@ import employeeRouter from "./src/router/employeeRouter.js";
 const app = express() ; 
 //app.use(cors())
  app.use(cors({
-     origin: 'http://localhost:5173', // Replace with your frontend domain
+     origin: '', // Replace with your frontend domain
      methods: ['GET', 'POST','PUT','DELETE' ],
      credentials:true
 
