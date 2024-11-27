@@ -46,3 +46,7 @@ app.listen(5000,async()=>{
     await mongoose.connect(mongodbURL) ; 
     console.log('Connection to db Successfully established') ;
 })
+
+app.get("/",(req,res)=>{
+    res.json("hello") ;
+})
