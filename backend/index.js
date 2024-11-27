@@ -10,13 +10,22 @@ import employeeRouter from "./src/router/employeeRouter.js";
 
 
 const app = express() ; 
-//app.use(cors())
- app.use(cors({
-     origin: '', // Replace with your frontend domain
-     methods: ['GET', 'POST','PUT','DELETE' ],
-     credentials:true
 
-   }));
+const corsOptions = {
+    origin: 'https://dev-ems-frontend.vercel.app',  // Allow only this origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],     // Allow specific methods
+    allowedHeaders: ['Content-Type', 'Authorization'],  // Allow specific headers
+  };
+  
+  // Enable CORS with the specified options
+  app.use(cors(corsOptions));
+//app.use(cors())
+//  app.use(cors({
+//      origin: 'https://dev-ems-frontend.vercel.app', // Replace with your frontend domain
+//      methods: ['GET', 'POST','PUT','DELETE' ],
+//      credentials:true
+
+//    }));
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
