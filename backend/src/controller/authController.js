@@ -8,7 +8,7 @@ const JWT_KEY = "ffff" ;
  import  successResponse  from './responseController.js';
 // const { jwtActivationKey } = require("../secret");
 import { cookie } from 'express-validator';
-import jwtActivationKey from '../secret.js';
+//import jwtActivationKey from '../secret.js';
 
 const register = async(req,res,next)=>{
     const { name, password,email,role } = req.body;
@@ -20,6 +20,7 @@ const register = async(req,res,next)=>{
 
 
 const login =async (req,res,next)=>{
+    const jwtActivationKey = 'AIHAH9HA9H9A1379393663-@$%' ; 
     // const { email, password } = req.body;
     // const user = await User.findOne({ email });
     // if (!user) return res.status(400).send('Invalid credentials');
