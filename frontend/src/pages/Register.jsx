@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { useAuth } from '../context/AuthContext';
-import { useAuth } from '../context/authContext';
+import { useAuth } from '../context/AuthContext';
 const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
