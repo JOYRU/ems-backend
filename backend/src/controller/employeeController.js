@@ -3,7 +3,7 @@ import Department from "../models/Employee.js";
 import User from "../models/User.js";
 import successResponse from "./responseController.js";
 import multer from 'multer' ; 
-import bcrypt, { hash } from 'bcrypt'
+// import bcrypt, { hash } from 'bcrypt'
 import path from "path"
 
 const storage = multer.diskStorage({
