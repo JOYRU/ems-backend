@@ -1,6 +1,6 @@
 import User  from '../models/User.js'
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs'
+//import bcrypt from 'bcryptjs'
 import createHttpError from 'http-errors';
 import createError from 'http-errors'
 const JWT_KEY = "ffff" ; 
@@ -12,8 +12,9 @@ import { cookie } from 'express-validator';
 
 const register = async(req,res,next)=>{
     const { name, password,email,role } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ name, password: hashedPassword,email,role });
+    //const hashedPassword = await bcrypt.hash(password, 10);
+    //const newUser = new User({ name, password: hashedPassword,email,role });
+    const newUser = new User({ name, password,email,role });
     await newUser.save();
     res.status(201).send('User registered');
 }

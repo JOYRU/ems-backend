@@ -29,14 +29,14 @@ const addEmployee =async(req,res,next)=>{
         //     return res.status(400).json({success:false,error:"User already registered in emp"})
         // }
      
-     const hashPassword = await bcrypt.hash(password,10) ; 
+    // const hashPassword = await bcrypt.hash(password,10) ; 
    
       console.log("hello")  ; 
       console.log(employee_name)
      const newUser = new User({
         name:employee_name,
         email,
-        password:hashPassword,
+        password,
         role,
         profileImage:req.file ? req.file.filename:"",
         
